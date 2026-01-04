@@ -341,14 +341,18 @@ const App = {
         });
 
         // Mobile menu toggle
-        document.getElementById('menuToggle')?.addEventListener('click', () => {
-            document.querySelector('.sidebar')?.classList.toggle('open');
-            document.querySelector('.sidebar-overlay')?.classList.toggle('active');
+        const menuToggle = document.getElementById('menuToggle');
+        const dashboardSidebar = document.querySelector('#dashboardScreen .sidebar');
+        const sidebarOverlay = document.querySelector('#dashboardScreen .sidebar-overlay');
+
+        menuToggle?.addEventListener('click', () => {
+            dashboardSidebar?.classList.toggle('open');
+            sidebarOverlay?.classList.toggle('active');
         });
 
-        document.querySelector('.sidebar-overlay')?.addEventListener('click', () => {
-            document.querySelector('.sidebar')?.classList.remove('open');
-            document.querySelector('.sidebar-overlay')?.classList.remove('active');
+        sidebarOverlay?.addEventListener('click', () => {
+            dashboardSidebar?.classList.remove('open');
+            sidebarOverlay?.classList.remove('active');
         });
 
         // Online/Offline status
