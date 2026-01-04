@@ -88,9 +88,42 @@
 
 <body>
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
-        <div class="loading-spinner"></div>
-        <p>Loading DailySync...</p>
+    <!-- Skeleton Loading Screen -->
+    <div id="skeletonScreen" class="loading-screen" style="z-index: 9999; background: var(--bg-primary);">
+        <div class="app-container" style="width: 100%; opacity: 0.5;">
+            <!-- Skeleton Sidebar -->
+            <aside class="sidebar" style="position: relative;">
+                <div class="sidebar-header">
+                    <div class="skeleton" style="width: 150px; height: 32px;"></div>
+                </div>
+                <div class="sidebar-nav" style="padding: 16px;">
+                    <div class="skeleton" style="height: 40px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="height: 40px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="height: 40px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="height: 40px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="height: 40px; margin-bottom: 8px;"></div>
+                </div>
+            </aside>
+            <!-- Skeleton Content -->
+            <main class="main-content">
+                <div class="page-header">
+                    <div>
+                        <div class="skeleton" style="width: 200px; height: 48px; margin-bottom: 8px;"></div>
+                        <div class="skeleton" style="width: 150px; height: 24px;"></div>
+                    </div>
+                </div>
+                <div class="grid grid-4" style="margin-bottom: 32px;">
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                    <div class="skeleton skeleton-card"></div>
+                </div>
+                <div class="grid grid-2">
+                    <div class="skeleton" style="height: 300px; border-radius: 16px;"></div>
+                    <div class="skeleton" style="height: 300px; border-radius: 16px;"></div>
+                </div>
+            </main>
+        </div>
     </div>
 
     <!-- Offline Banner -->
@@ -427,33 +460,33 @@
             <div id="dashboardModule" class="module-page active">
                 <div class="page-header">
                     <div>
-                        <h1 id="greeting" class="greeting-text fade-in">Good Morning!</h1>
-                        <p id="currentDate" class="text-secondary"></p>
+                        <h1 id="greeting" class="greeting-text stagger-item">Good Morning!</h1>
+                        <p id="currentDate" class="text-secondary stagger-item"></p>
                     </div>
                 </div>
 
-                <div id="dashboardWidgets" class="grid grid-4 widget-grid">
+                <div id="dashboardWidgets" class="grid grid-4 widget-grid stagger-item">
                     <!-- Widgets populated by JS -->
                 </div>
 
-                <div class="dashboard-sections mt-md">
-                    <div class="grid grid-2">
-                        <div class="card">
+                <div class="dashboard-sections mt-md stagger-item">
+                    <div class="grid grid-2" style="align-items: stretch;">
+                        <div class="card" style="height: 100%; display: flex; flex-direction: column;">
                             <div class="card-header">
                                 <h3 class="card-title">Today's Tasks</h3>
                                 <button class="btn btn-ghost btn-sm" onclick="App.showModule('todos')">View All</button>
                             </div>
-                            <div id="dashboardTodos" class="dashboard-list">
+                            <div id="dashboardTodos" class="dashboard-list" style="flex: 1;">
                                 <!-- Populated by JS -->
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card" style="height: 100%; display: flex; flex-direction: column;">
                             <div class="card-header">
                                 <h3 class="card-title">Upcoming Events</h3>
                                 <button class="btn btn-ghost btn-sm" onclick="App.showModule('calendar')">View
                                     All</button>
                             </div>
-                            <div id="dashboardEvents" class="dashboard-list">
+                            <div id="dashboardEvents" class="dashboard-list" style="flex: 1;">
                                 <!-- Populated by JS -->
                             </div>
                         </div>

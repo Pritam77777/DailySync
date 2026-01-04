@@ -29,6 +29,14 @@
 
 .auth-logo svg {
     color: var(--accent-blue);
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
+}
+
+.auth-logo h1 {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .auth-form {
@@ -122,32 +130,57 @@
 }
 
 .widget-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
     border-radius: var(--radius-lg);
     padding: var(--spacing-lg);
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.widget-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
 }
 
 .widget-card:hover {
-    border-color: var(--border-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.widget-card:hover::before {
+    opacity: 1;
 }
 
 .widget-icon {
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     border-radius: var(--radius-md);
-    background: rgba(59, 130, 246, 0.15);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
     color: var(--accent-blue);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: transform var(--transition-fast);
+}
+
+.widget-card:hover .widget-icon {
+    transform: scale(1.1);
 }
 
 .widget-icon-green {
@@ -1446,19 +1479,20 @@
 }
 
 .settings-card {
-    padding: var(--spacing-xl);
+    padding: var(--spacing-md);
 }
 
 .settings-section-header {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-    padding-bottom: var(--spacing-md);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
     border-bottom: 1px solid var(--border-color);
 }
 
 .settings-section-header h3 {
+    font-size: var(--font-size-base);
     font-weight: 600;
     margin: 0;
 }
@@ -1482,9 +1516,10 @@
 
 .theme-preview-card {
     flex: 1;
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
     text-align: center;
+    font-size: var(--font-size-sm);
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-fast);

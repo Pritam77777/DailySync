@@ -136,12 +136,19 @@ const Todos = {
         if (filtered.length === 0) {
             container.innerHTML = `
         <div class="empty-state">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-tertiary); margin-bottom: 16px;">
             <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
             <path d="m9 12 2 2 4-4"/>
           </svg>
-          <h3>No tasks yet</h3>
-          <p>Add your first task to get started!</p>
+          <h3>All caught up!</h3>
+          <p style="margin-bottom: 24px;">You have no pending tasks. Enjoy your day!</p>
+          <button class="btn btn-primary" onclick="Modal.open('addTaskModal')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" x2="12" y1="5" y2="19" />
+                <line x1="5" x2="19" y1="12" y2="12" />
+            </svg>
+            Create Task
+          </button>
         </div>
       `;
             return;

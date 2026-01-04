@@ -24,10 +24,20 @@ const App = {
         // Check for app install prompt
         this.setupInstallPrompt();
 
-        // Hide loading screen
+        // Hide loading screen (Skeleton)
         setTimeout(() => {
-            document.getElementById('loadingScreen')?.classList.add('hidden');
-        }, 1000);
+            const skeleton = document.getElementById('skeletonScreen');
+            if (skeleton) {
+                skeleton.style.opacity = '0';
+                setTimeout(() => {
+                    skeleton.classList.add('hidden');
+                    // Trigger staggered animations by ensuring elements are visible
+                    document.querySelectorAll('.stagger-item').forEach(el => {
+                        el.style.animationPlayState = 'running';
+                    });
+                }, 500);
+            }
+        }, 1200); // Slightly longer delay to show off the skeleton
     },
 
     registerServiceWorker() {
@@ -247,14 +257,40 @@ const App = {
         const widgetsContainer = document.getElementById('dashboardWidgets');
         if (!widgetsContainer) return;
 
+        // Helper to generate a mini circular chart
+        const createMiniChart = (color, percentage, iconPath) => {
+            const radius = 18;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (percentage / 100) * circumference;
+            // Determine color hex
+            const colors = {
+                blue: '#3b82f6',
+                green: '#10b981',
+                purple: '#8b5cf6',
+                orange: '#f97316'
+            };
+            const strokeColor = colors[color] || colors.blue;
+
+            return `
+            <div class="widget-icon" style="position: relative; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: transparent;">
+                <svg width="48" height="48" viewBox="0 0 48 48" style="transform: rotate(-90deg);">
+                    <circle cx="24" cy="24" r="${radius}" fill="none" stroke="var(--bg-tertiary)" stroke-width="4" />
+                    <circle cx="24" cy="24" r="${radius}" fill="none" stroke="${strokeColor}" stroke-width="4" stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" stroke-linecap="round" />
+                </svg>
+                <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${strokeColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        ${iconPath}
+                    </svg>
+                </div>
+            </div>
+            `;
+        };
+
+        const todoPercent = todoStats.total > 0 ? (todoStats.completed / todoStats.total) * 100 : 0;
+
         widgetsContainer.innerHTML = `
       <div class="widget-card stagger-item" onclick="App.showModule('todos')">
-        <div class="widget-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
-        </div>
+        ${createMiniChart('blue', todoPercent, '<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/>')}
         <div class="widget-content">
           <span class="widget-value">${todoStats.completed}/${todoStats.total}</span>
           <span class="widget-label">Tasks Done</span>
@@ -262,12 +298,7 @@ const App = {
       </div>
       
       <div class="widget-card stagger-item" onclick="App.showModule('habits')">
-        <div class="widget-icon widget-icon-green">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-        </div>
+        ${createMiniChart('green', habitStats.progress, '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>')}
         <div class="widget-content">
           <span class="widget-value">${habitStats.progress}%</span>
           <span class="widget-label">Habits Today</span>
@@ -275,11 +306,7 @@ const App = {
       </div>
       
       <div class="widget-card stagger-item" onclick="App.showModule('timer')">
-        <div class="widget-icon widget-icon-purple">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-        </div>
+         ${createMiniChart('purple', (timerStats.sessions / 4) * 100, '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>')}
         <div class="widget-content">
           <span class="widget-value">${timerStats.sessions}</span>
           <span class="widget-label">Focus Sessions</span>
@@ -287,15 +314,9 @@ const App = {
       </div>
       
       <div class="widget-card stagger-item" onclick="App.showModule('goals')">
-        <div class="widget-icon widget-icon-orange">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <circle cx="12" cy="12" r="6"/>
-            <circle cx="12" cy="12" r="2"/>
-          </svg>
-        </div>
+        ${createMiniChart('orange', goalStats.avgProgress, '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>')}
         <div class="widget-content">
-          <span class="widget-value">${goalStats.avgProgress}%</span>
+          <span class="widget-value">${Math.round(goalStats.avgProgress)}%</span>
           <span class="widget-label">Goals Progress</span>
         </div>
       </div>

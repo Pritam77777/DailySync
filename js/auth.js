@@ -2,7 +2,22 @@
 const Auth = {
     init() {
         this.setupAuthStateListener();
+        this.handleRedirectResult();
         this.bindEvents();
+    },
+
+    // Handle redirect result for mobile Google login
+    async handleRedirectResult() {
+        try {
+            const result = await auth.getRedirectResult();
+            if (result.user) {
+                Toast.show('Welcome!', 'success');
+            }
+        } catch (error) {
+            if (error.code && error.code !== 'auth/popup-closed-by-user') {
+                Toast.show(this.getErrorMessage(error.code), 'error');
+            }
+        }
     },
 
     setupAuthStateListener() {
@@ -117,12 +132,34 @@ const Auth = {
 
     async handleGoogleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({
+            prompt: 'select_account'
+        });
+
         try {
             this.showLoading(true);
-            await auth.signInWithPopup(provider);
-            Toast.show('Welcome!', 'success');
+
+            // Check if on mobile - use redirect instead of popup
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                // Use redirect for mobile devices
+                await auth.signInWithRedirect(provider);
+            } else {
+                // Use popup for desktop
+                await auth.signInWithPopup(provider);
+                Toast.show('Welcome!', 'success');
+            }
         } catch (error) {
-            if (error.code !== 'auth/popup-closed-by-user') {
+            if (error.code === 'auth/popup-blocked') {
+                // Fallback to redirect if popup is blocked
+                Toast.show('Popup blocked. Redirecting...', 'info');
+                try {
+                    await auth.signInWithRedirect(provider);
+                } catch (redirectError) {
+                    Toast.show(this.getErrorMessage(redirectError.code), 'error');
+                }
+            } else if (error.code !== 'auth/popup-closed-by-user') {
                 Toast.show(this.getErrorMessage(error.code), 'error');
             }
         } finally {
@@ -158,13 +195,15 @@ const Auth = {
         const messages = {
             'auth/email-already-in-use': 'This email is already registered',
             'auth/invalid-email': 'Invalid email address',
-            'auth/operation-not-allowed': 'Operation not allowed',
+            'auth/operation-not-allowed': 'Google Sign-In is not enabled. Please contact support.',
             'auth/weak-password': 'Password is too weak',
             'auth/user-disabled': 'This account has been disabled',
             'auth/user-not-found': 'No account found with this email',
             'auth/wrong-password': 'Incorrect password',
             'auth/too-many-requests': 'Too many attempts. Please try again later',
-            'auth/network-request-failed': 'Network error. Check your connection'
+            'auth/network-request-failed': 'Network error. Check your connection',
+            'auth/unauthorized-domain': 'This domain is not authorized. Please contact support.',
+            'auth/popup-blocked': 'Popup was blocked. Please allow popups for this site.'
         };
         return messages[code] || 'An error occurred. Please try again';
     }
