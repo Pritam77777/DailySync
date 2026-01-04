@@ -81,6 +81,16 @@ const App = {
         document.querySelectorAll('.bottom-nav-item').forEach(item => {
             item.classList.toggle('active', item.dataset.module === module);
         });
+
+        // Refresh dashboard widgets when switching to dashboard
+        if (module === 'dashboard') {
+            this.updateDashboardWidgets();
+        }
+
+        // Refresh settings when switching to settings
+        if (module === 'settings' && typeof Settings !== 'undefined') {
+            Settings.render();
+        }
     },
 
     initializeModules() {
@@ -91,6 +101,7 @@ const App = {
         Timer.init();
         Goals.init();
         Routines.init();
+        Settings.init();
     },
 
     async loadUserData(user) {
