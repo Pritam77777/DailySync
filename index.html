@@ -498,6 +498,14 @@
             <div id="todosModule" class="module-page hidden">
                 <div class="page-header">
                     <h1 class="page-title">To-Do List</h1>
+                    <button class="btn btn-primary" onclick="Modal.open('addTaskModal')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="5" y2="19" />
+                            <line x1="5" x2="19" y1="12" y2="12" />
+                        </svg>
+                        Add Task
+                    </button>
                 </div>
 
                 <div class="filter-bar">
@@ -538,6 +546,15 @@
                     </div>
                     <div class="calendar-actions">
                         <button id="todayBtn" class="btn btn-secondary">Today</button>
+                        <button class="btn btn-primary" onclick="Modal.open('addEventModal')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <line x1="12" x2="12" y1="5" y2="19" />
+                                <line x1="5" x2="19" y1="12" y2="12" />
+                            </svg>
+                            Add Event
+                        </button>
                     </div>
                 </div>
 
@@ -585,6 +602,14 @@
             <div id="habitsModule" class="module-page hidden">
                 <div class="page-header">
                     <h1 class="page-title">Habit Tracker</h1>
+                    <button class="btn btn-primary" onclick="Modal.open('addHabitModal')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="5" y2="19" />
+                            <line x1="5" x2="19" y1="12" y2="12" />
+                        </svg>
+                        Add Habit
+                    </button>
                 </div>
 
                 <div id="habitsStats" class="habits-stats grid grid-3">
@@ -600,6 +625,15 @@
             <div id="timerModule" class="module-page hidden">
                 <div class="page-header">
                     <h1 class="page-title">Focus Timer</h1>
+                    <button class="btn btn-secondary" onclick="Modal.open('timerSettingsModal')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        Settings
+                    </button>
                 </div>
 
                 <div class="timer-container">
@@ -662,6 +696,14 @@
             <div id="goalsModule" class="module-page hidden">
                 <div class="page-header">
                     <h1 class="page-title">Goals</h1>
+                    <button class="btn btn-primary" onclick="Modal.open('addGoalModal')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="5" y2="19" />
+                            <line x1="5" x2="19" y1="12" y2="12" />
+                        </svg>
+                        Add Goal
+                    </button>
                 </div>
 
                 <div id="goalsList" class="goals-list">
@@ -673,6 +715,14 @@
             <div id="routinesModule" class="module-page hidden">
                 <div class="page-header">
                     <h1 class="page-title">Routines</h1>
+                    <button class="btn btn-primary" onclick="Modal.open('addRoutineModal')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" x2="12" y1="5" y2="19" />
+                            <line x1="5" x2="19" y1="12" y2="12" />
+                        </svg>
+                        Add Routine
+                    </button>
                 </div>
 
                 <div id="routinesList" class="routines-list">
@@ -837,6 +887,457 @@
                 <span>Notes</span>
             </div>
         </nav>
+    </div>
+
+    <!-- ========== MODALS ========== -->
+
+    <!-- Add Task Modal -->
+    <div id="addTaskModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Task</h3>
+                <button class="modal-close" onclick="Modal.close('addTaskModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="addTaskForm" class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Task Title</label>
+                    <input type="text" name="title" class="form-input" placeholder="What needs to be done?" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select name="priority" class="form-select">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Due Date</label>
+                        <input type="date" name="dueDate" class="form-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select name="category" class="form-select">
+                        <option value="default">Default</option>
+                        <option value="work">Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="health">Health</option>
+                    </select>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('addTaskModal')">Cancel</button>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('addTaskForm').dispatchEvent(new Event('submit'))">Add
+                    Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div id="addEventModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Event</h3>
+                <button class="modal-close" onclick="Modal.close('addEventModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="addEventForm" class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Event Title</label>
+                    <input type="text" name="title" class="form-input" placeholder="Event name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" name="date" class="form-input" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Start Time</label>
+                        <input type="time" name="startTime" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Time</label>
+                        <input type="time" name="endTime" class="form-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select name="category" class="form-select">
+                        <option value="work">Work</option>
+                        <option value="personal">Personal</option>
+                        <option value="health">Health</option>
+                        <option value="social">Social</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-textarea" placeholder="Event details..."></textarea>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('addEventModal')">Cancel</button>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('addEventForm').dispatchEvent(new Event('submit'))">Add
+                    Event</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Note Editor Modal -->
+    <div id="noteEditorModal" class="modal-overlay hidden">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Note Editor</h3>
+                <button class="modal-close" onclick="Modal.close('noteEditorModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="addNoteForm" class="modal-body">
+                <div class="form-group">
+                    <input type="text" name="title" class="form-input" placeholder="Note title...">
+                </div>
+                <div class="editor-toolbar">
+                    <button type="button" class="btn btn-ghost btn-icon" onclick="Notes.execCommand('bold')"
+                        title="Bold"><b>B</b></button>
+                    <button type="button" class="btn btn-ghost btn-icon" onclick="Notes.execCommand('italic')"
+                        title="Italic"><i>I</i></button>
+                    <button type="button" class="btn btn-ghost btn-icon" onclick="Notes.execCommand('underline')"
+                        title="Underline"><u>U</u></button>
+                    <button type="button" class="btn btn-ghost btn-icon"
+                        onclick="Notes.execCommand('insertUnorderedList')" title="List">•</button>
+                </div>
+                <div class="form-group">
+                    <div name="content" class="form-textarea note-editor" contenteditable="true"
+                        placeholder="Start writing..."></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Color</label>
+                        <select name="color" class="form-select">
+                            <option value="default">Default</option>
+                            <option value="red">Red</option>
+                            <option value="orange">Orange</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="green">Green</option>
+                            <option value="blue">Blue</option>
+                            <option value="purple">Purple</option>
+                            <option value="pink">Pink</option>
+                            <option value="teal">Teal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Folder</label>
+                        <select name="folder" class="form-select">
+                            <option value="general">General</option>
+                            <option value="work">Work</option>
+                            <option value="personal">Personal</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('noteEditorModal')">Cancel</button>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('addNoteForm').dispatchEvent(new Event('submit'))">Save
+                    Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Habit Modal -->
+    <div id="addHabitModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Habit</h3>
+                <button class="modal-close" onclick="Modal.close('addHabitModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="addHabitForm" class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Habit Name</label>
+                    <input type="text" name="name" class="form-input" placeholder="e.g., Drink 8 glasses of water"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Icon</label>
+                    <div class="icon-picker">
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="strength" checked>
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="m6.5 6.5 11 11" />
+                                    <path d="m21 21-1-1" />
+                                    <path d="m3 3 1 1" />
+                                    <path d="m18 22 4-4" />
+                                    <path d="m2 6 4-4" />
+                                </svg></span>
+                        </label>
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="book">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+                                </svg></span>
+                        </label>
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="running">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                                </svg></span>
+                        </label>
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="water">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+                                </svg></span>
+                        </label>
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="meditation">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path
+                                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                                </svg></span>
+                        </label>
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="sleep">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                                </svg></span>
+                        </label>
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="food">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+                                    <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+                                </svg></span>
+                        </label>
+                        <label class="icon-option">
+                            <input type="radio" name="icon" value="writing">
+                            <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
+                                </svg></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select name="category" class="form-select">
+                        <option value="health">Health</option>
+                        <option value="fitness">Fitness</option>
+                        <option value="productivity">Productivity</option>
+                        <option value="mindfulness">Mindfulness</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('addHabitModal')">Cancel</button>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('addHabitForm').dispatchEvent(new Event('submit'))">Add
+                    Habit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer Settings Modal -->
+    <div id="timerSettingsModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Timer Settings</h3>
+                <button class="modal-close" onclick="Modal.close('timerSettingsModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="timerSettingsForm" class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Focus Duration (minutes)</label>
+                    <input type="number" name="workDuration" class="form-input" value="25" min="1" max="120">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Short Break (minutes)</label>
+                    <input type="number" name="shortBreakDuration" class="form-input" value="5" min="1" max="30">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Long Break (minutes)</label>
+                    <input type="number" name="longBreakDuration" class="form-input" value="15" min="1" max="60">
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('timerSettingsModal')">Cancel</button>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('timerSettingsForm').dispatchEvent(new Event('submit'))">Save
+                    Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Goal Modal -->
+    <div id="addGoalModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Goal</h3>
+                <button class="modal-close" onclick="Modal.close('addGoalModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="addGoalForm" class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Goal Title</label>
+                    <input type="text" name="title" class="form-input" placeholder="What do you want to achieve?"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea name="description" class="form-textarea" placeholder="Describe your goal..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select name="category" class="form-select">
+                            <option value="career">Career</option>
+                            <option value="health">Health</option>
+                            <option value="finance">Finance</option>
+                            <option value="personal">Personal</option>
+                            <option value="education">Education</option>
+                            <option value="relationships">Relationships</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Target Date</label>
+                        <input type="date" name="targetDate" class="form-input">
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('addGoalModal')">Cancel</button>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('addGoalForm').dispatchEvent(new Event('submit'))">Add
+                    Goal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Routine Modal -->
+    <div id="addRoutineModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Routine</h3>
+                <button class="modal-close" onclick="Modal.close('addRoutineModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <form id="addRoutineForm" class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Routine Name</label>
+                    <input type="text" name="name" class="form-input" placeholder="e.g., Morning Routine" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Type</label>
+                    <select name="type" class="form-select">
+                        <option value="morning">Morning</option>
+                        <option value="evening">Evening</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Modal.close('addRoutineModal')">Cancel</button>
+                <button class="btn btn-primary"
+                    onclick="document.getElementById('addRoutineForm').dispatchEvent(new Event('submit'))">Create
+                    Routine</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Modal -->
+    <div id="dynamicModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title"></h3>
+                <button class="modal-close" onclick="Modal.close('dynamicModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Install Prompt Modal -->
+    <div id="installPromptModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">📱 Install DailySync</h3>
+                <button class="modal-close" onclick="Modal.close('installPromptModal')">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18" />
+                        <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none"
+                    stroke="var(--accent-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="mb-md">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                    <line x1="12" y1="18" x2="12" y2="18" />
+                </svg>
+                <h3>Get the full experience!</h3>
+                <p class="text-secondary">Install DailySync on your device for quick access and offline support.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="neverShowInstall" class="btn btn-ghost">Don't show again</button>
+                <button id="dismissInstall" class="btn btn-secondary">Not now</button>
+                <button id="installBtn" class="btn btn-primary">Install App</button>
+            </div>
+        </div>
     </div>
 
     <!-- Firebase SDK -->
