@@ -139,24 +139,19 @@ const Auth = {
         try {
             this.showLoading(true);
 
-            // Check if on mobile - use redirect instead of popup
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-            if (isMobile) {
-                // Use redirect for mobile devices
-                await auth.signInWithRedirect(provider);
-            } else {
-                // Use popup for desktop
-                await auth.signInWithPopup(provider);
-                Toast.show('Welcome!', 'success');
-            }
+            // Use popup for all devices (more reliable than redirect without deep linking)
+            await auth.signInWithPopup(provider);
+            Toast.show('Welcome!', 'success');
         } catch (error) {
+            console.error('Google Sign-In Error:', error); // Log full error for debugging
+
             if (error.code === 'auth/popup-blocked') {
                 // Fallback to redirect if popup is blocked
                 Toast.show('Popup blocked. Redirecting...', 'info');
                 try {
                     await auth.signInWithRedirect(provider);
                 } catch (redirectError) {
+                    console.error('Redirect Error:', redirectError);
                     Toast.show(this.getErrorMessage(redirectError.code), 'error');
                 }
             } else if (error.code !== 'auth/popup-closed-by-user') {
@@ -201,9 +196,10 @@ const Auth = {
             'auth/user-not-found': 'No account found with this email',
             'auth/wrong-password': 'Incorrect password',
             'auth/too-many-requests': 'Too many attempts. Please try again later',
-            'auth/network-request-failed': 'Network error. Check your connection',
-            'auth/unauthorized-domain': 'This domain is not authorized. Please contact support.',
-            'auth/popup-blocked': 'Popup was blocked. Please allow popups for this site.'
+            'auth/network-request-failed': 'Network error. Please check your internet connection.',
+            'auth/unauthorized-domain': 'Domain not authorized. Add it to Firebase Console > Authentication > Settings.',
+            'auth/popup-blocked': 'Popup was blocked. Please allow popups for this site.',
+            'auth/cancelled-popup-request': 'Popup closed by user.'
         };
         return messages[code] || 'An error occurred. Please try again';
     }

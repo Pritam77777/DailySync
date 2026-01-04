@@ -38,6 +38,8 @@
     .sidebar.open {
         transform: translateX(0);
         box-shadow: var(--shadow-xl);
+        z-index: 1001;
+        /* Ensure above bottom nav and overlay */
     }
 
     /* Mobile overlay when sidebar is open */
