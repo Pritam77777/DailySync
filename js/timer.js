@@ -12,6 +12,11 @@ const Timer = {
     sessions: 0,
     totalFocusTime: 0,
 
+    // Focus streaks
+    focusStreak: 0,
+    lastFocusDate: null,
+    bestStreak: 0,
+
     audio: null,
 
     init() {
@@ -19,6 +24,8 @@ const Timer = {
         this.bindEvents();
         this.render();
         this.loadTodayStats();
+        this.loadStreakData();
+        this.renderStreakDisplay();
     },
 
     async loadSettings() {
@@ -37,6 +44,32 @@ const Timer = {
             this.totalFocusTime = stats.totalFocusTime || 0;
         }
         this.updateStatsDisplay();
+    },
+
+    async loadStreakData() {
+        const streakData = await Database.read('timerStreak');
+        if (streakData) {
+            this.focusStreak = streakData.current || 0;
+            this.lastFocusDate = streakData.lastDate || null;
+            this.bestStreak = streakData.best || 0;
+            this.checkStreakValidity();
+        }
+        this.renderStreakDisplay();
+    },
+
+    checkStreakValidity() {
+        if (!this.lastFocusDate) return;
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const lastDate = new Date(this.lastFocusDate);
+        lastDate.setHours(0, 0, 0, 0);
+
+        const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+
+        if (diffDays > 1) {
+            this.focusStreak = 0;
+        }
     },
 
     bindEvents() {
@@ -90,6 +123,14 @@ const Timer = {
         this.updateButtons();
     },
 
+    toggle() {
+        if (this.isRunning) {
+            this.pause();
+        } else {
+            this.start();
+        }
+    },
+
     reset() {
         this.pause();
         this.timeRemaining = this.durations[this.currentMode];
@@ -104,10 +145,14 @@ const Timer = {
             this.sessions++;
             this.totalFocusTime += this.durations.work;
             await this.saveStats();
+            await this.updateStreak();
+
+            if (this.sessions % 4 === 0) {
+                this.showConfetti();
+            }
 
             Toast.show(`Great work! Session ${this.sessions} complete! 🎉`, 'success');
 
-            // Auto switch to break
             if (this.sessions % 4 === 0) {
                 this.setMode('longBreak');
                 Toast.show('Time for a long break!', 'info');
@@ -121,6 +166,57 @@ const Timer = {
         }
 
         this.updateStatsDisplay();
+        this.renderStreakDisplay();
+    },
+
+    async updateStreak() {
+        const today = new Date().toISOString().split('T')[0];
+
+        if (this.lastFocusDate !== today) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+            if (this.lastFocusDate === yesterdayStr || !this.lastFocusDate) {
+                this.focusStreak++;
+            } else {
+                this.focusStreak = 1;
+            }
+
+            this.lastFocusDate = today;
+
+            if (this.focusStreak > this.bestStreak) {
+                this.bestStreak = this.focusStreak;
+                Toast.show(`New best streak: ${this.bestStreak} days! 🔥`, 'success');
+            }
+
+            await Database.set('timerStreak', {
+                current: this.focusStreak,
+                lastDate: this.lastFocusDate,
+                best: this.bestStreak
+            });
+        }
+    },
+
+    showConfetti() {
+        const container = document.createElement('div');
+        container.className = 'confetti-container';
+        document.body.appendChild(container);
+
+        const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f43f5e', '#fb923c', '#fbbf24'];
+
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = Math.random() * 100 + '%';
+            confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            confetti.style.animationDuration = (0.5 + Math.random() * 0.5) + 's';
+            container.appendChild(confetti);
+        }
+
+        setTimeout(() => container.remove(), 2000);
     },
 
     async saveStats() {
@@ -148,8 +244,25 @@ const Timer = {
         Toast.show('Settings saved!', 'success');
     },
 
+    renderStreakDisplay() {
+        const container = document.getElementById('focusStreakDisplay');
+        if (!container) return;
+
+        container.innerHTML = `
+            <div class="streak-badge ${this.focusStreak > 0 ? 'active' : ''}">
+                <span class="streak-fire">🔥</span>
+                <span class="streak-count">${this.focusStreak}</span>
+                <span class="streak-label">day streak</span>
+            </div>
+            ${this.bestStreak > 0 ? `
+                <div class="best-streak">
+                    Best: ${this.bestStreak} days
+                </div>
+            ` : ''}
+        `;
+    },
+
     playSound() {
-        // Create audio context for notification sound
         try {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             const oscillator = audioContext.createOscillator();
@@ -168,7 +281,6 @@ const Timer = {
                 oscillator.stop();
             }, 200);
 
-            // Second beep
             setTimeout(() => {
                 const osc2 = audioContext.createOscillator();
                 osc2.connect(gainNode);
@@ -230,13 +342,12 @@ const Timer = {
         }
 
         if (progressCircle) {
-            const circumference = 2 * Math.PI * 90; // radius = 90
+            const circumference = 2 * Math.PI * 90;
             const progress = this.getProgress();
             const offset = circumference - (progress / 100) * circumference;
             progressCircle.style.strokeDasharray = `${circumference}`;
             progressCircle.style.strokeDashoffset = `${offset}`;
 
-            // Change color based on mode
             const colors = {
                 work: 'var(--accent-blue)',
                 shortBreak: 'var(--accent-green)',
@@ -253,7 +364,9 @@ const Timer = {
             sessions: this.sessions,
             totalFocusTime: this.totalFocusTime,
             currentMode: this.currentMode,
-            isRunning: this.isRunning
+            isRunning: this.isRunning,
+            streak: this.focusStreak,
+            bestStreak: this.bestStreak
         };
     }
 };

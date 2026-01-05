@@ -15,7 +15,8 @@ const Auth = {
             }
         } catch (error) {
             if (error.code && error.code !== 'auth/popup-closed-by-user') {
-                Toast.show(this.getErrorMessage(error.code), 'error');
+                const msg = this.getErrorMessage(error.code);
+                if (msg) Toast.show(msg, 'error');
             }
         }
     },
@@ -97,7 +98,8 @@ const Auth = {
             await auth.signInWithEmailAndPassword(email, password);
             Toast.show('Welcome back!', 'success');
         } catch (error) {
-            Toast.show(this.getErrorMessage(error.code), 'error');
+            const msg = this.getErrorMessage(error.code);
+            if (msg) Toast.show(msg, 'error');
         } finally {
             this.showLoading(false);
         }
@@ -124,7 +126,8 @@ const Auth = {
             await auth.createUserWithEmailAndPassword(email, password);
             Toast.show('Account created successfully!', 'success');
         } catch (error) {
-            Toast.show(this.getErrorMessage(error.code), 'error');
+            const msg = this.getErrorMessage(error.code);
+            if (msg) Toast.show(msg, 'error');
         } finally {
             this.showLoading(false);
         }
@@ -155,7 +158,8 @@ const Auth = {
                     Toast.show(this.getErrorMessage(redirectError.code), 'error');
                 }
             } else if (error.code !== 'auth/popup-closed-by-user') {
-                Toast.show(this.getErrorMessage(error.code), 'error');
+                const msg = this.getErrorMessage(error.code);
+                if (msg) Toast.show(msg, 'error');
             }
         } finally {
             this.showLoading(false);
@@ -199,9 +203,9 @@ const Auth = {
             'auth/network-request-failed': 'Network error. Please check your internet connection.',
             'auth/unauthorized-domain': 'Domain not authorized. Add it to Firebase Console > Authentication > Settings.',
             'auth/popup-blocked': 'Popup was blocked. Please allow popups for this site.',
-            'auth/cancelled-popup-request': 'Popup closed by user.'
+            'auth/cancelled-popup-request': null // Silently ignore
         };
-        return messages[code] || 'An error occurred. Please try again';
+        return messages[code] || null; // Return null for unknown errors to prevent popup
     }
 };
 

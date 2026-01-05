@@ -101,6 +101,11 @@ const App = {
         if (module === 'settings' && typeof Settings !== 'undefined') {
             Settings.render();
         }
+
+        // Refresh reports when switching to reports
+        if (module === 'reports' && typeof Reports !== 'undefined') {
+            Reports.render();
+        }
     },
 
     initializeModules() {
@@ -112,6 +117,12 @@ const App = {
         Goals.init();
         Routines.init();
         Settings.init();
+
+        // Initialize new modules
+        if (typeof Reports !== 'undefined') Reports.init();
+        if (typeof Shortcuts !== 'undefined') Shortcuts.init();
+        if (typeof CommandBar !== 'undefined') CommandBar.init();
+        if (typeof OnboardingTour !== 'undefined') OnboardingTour.init();
     },
 
     async loadUserData(user) {
@@ -324,15 +335,29 @@ const App = {
     },
 
     bindEvents() {
-        // Desktop navigation
+        const dashboardSidebar = document.querySelector('#dashboardScreen .sidebar');
+        const sidebarOverlay = document.querySelector('#dashboardScreen .sidebar-overlay');
+
+        // Helper function to close mobile sidebar with smooth animation
+        const closeMobileSidebar = () => {
+            if (window.innerWidth <= 768) {
+                dashboardSidebar?.classList.remove('open');
+                sidebarOverlay?.classList.remove('active');
+            }
+        };
+
+        // Desktop/Sidebar navigation - close menu on item click
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const module = item.dataset.module;
-                if (module) this.showModule(module);
+                if (module) {
+                    this.showModule(module);
+                    closeMobileSidebar();
+                }
             });
         });
 
-        // Mobile navigation
+        // Mobile bottom navigation
         document.querySelectorAll('.bottom-nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const module = item.dataset.module;
@@ -342,8 +367,6 @@ const App = {
 
         // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
-        const dashboardSidebar = document.querySelector('#dashboardScreen .sidebar');
-        const sidebarOverlay = document.querySelector('#dashboardScreen .sidebar-overlay');
 
         menuToggle?.addEventListener('click', () => {
             dashboardSidebar?.classList.toggle('open');
@@ -529,7 +552,7 @@ const Onboarding = {
             email: auth.currentUser?.email
         });
 
-        Toast.show('Welcome to DailySync!', 'success');
+        // Navigate directly to dashboard without welcome popup
         App.showScreen('dashboard');
         App.loadUserData(auth.currentUser);
     }
