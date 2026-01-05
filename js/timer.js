@@ -248,18 +248,8 @@ const Timer = {
         const container = document.getElementById('focusStreakDisplay');
         if (!container) return;
 
-        container.innerHTML = `
-            <div class="streak-badge ${this.focusStreak > 0 ? 'active' : ''}">
-                <span class="streak-fire">🔥</span>
-                <span class="streak-count">${this.focusStreak}</span>
-                <span class="streak-label">day streak</span>
-            </div>
-            ${this.bestStreak > 0 ? `
-                <div class="best-streak">
-                    Best: ${this.bestStreak} days
-                </div>
-            ` : ''}
-        `;
+        // Hide streak display - cleared as per user request
+        container.innerHTML = '';
     },
 
     playSound() {
