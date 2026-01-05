@@ -1679,6 +1679,25 @@
     gap: var(--spacing-sm);
 }
 
+/* GitHub Link */
+.github-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.github-link:hover {
+    background: var(--bg-hover);
+    transform: translateY(-1px);
+}
+
+.github-link svg {
+    flex-shrink: 0;
+}
+
 .text-xs {
     font-size: var(--font-size-xs);
 }

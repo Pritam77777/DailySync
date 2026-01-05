@@ -1022,6 +1022,99 @@
 }
 
 /* ============================================
+   Reports Mobile - 2x2 Grid Layout
+   ============================================ */
+
+/* Reports responsive for tablets */
+@media (max-width: 768px) {
+    .report-summary-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: var(--spacing-sm);
+    }
+
+    .report-card {
+        padding: var(--spacing-md);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .report-card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+
+    .report-card-value {
+        font-size: var(--font-size-xl);
+    }
+
+    .report-card-label {
+        font-size: var(--font-size-xs);
+    }
+
+    .report-charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .report-details {
+        padding: var(--spacing-md);
+    }
+
+    .breakdown-item {
+        flex-direction: row;
+        gap: var(--spacing-sm);
+    }
+
+    .reports-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .period-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .export-actions {
+        width: 100%;
+    }
+
+    .export-actions .btn {
+        flex: 1;
+    }
+}
+
+/* Reports on smaller mobile */
+@media (max-width: 480px) {
+    .report-summary-grid {
+        gap: var(--spacing-xs);
+    }
+
+    .report-card {
+        padding: var(--spacing-sm);
+    }
+
+    .report-card-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+
+    .report-card-value {
+        font-size: var(--font-size-lg);
+    }
+
+    .insight-card {
+        padding: var(--spacing-sm);
+    }
+
+    .insight-icon {
+        font-size: 20px;
+    }
+}
+
+/* ============================================
    Mobile Calendar UI Improvements
    ============================================ */
 

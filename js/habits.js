@@ -51,7 +51,7 @@ const Habits = {
 
     const habit = {
       name: form.querySelector('[name="name"]').value.trim(),
-      icon: form.querySelector('[name="icon"]').value || 'strength',
+      icon: form.querySelector('[name="icon"]:checked')?.value || 'strength',
       category: form.querySelector('[name="category"]').value || 'health',
       frequency: form.querySelector('[name="frequency"]').value || 'daily',
       completions: {},

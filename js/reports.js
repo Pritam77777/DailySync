@@ -23,8 +23,7 @@ const Reports = {
         });
 
         // Export buttons
-        document.getElementById('exportJSON')?.addEventListener('click', () => this.exportJSON());
-        document.getElementById('exportCSV')?.addEventListener('click', () => this.exportCSV());
+        document.getElementById('exportJSON')?.addEventListener('click', () => this.exportPDF());
     },
 
     async render() {
@@ -394,6 +393,188 @@ const Reports = {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
+    },
+
+    // PDF Export Function
+    async exportPDF() {
+        const summary = this.calculateSummary();
+        const periodLabel = this.currentPeriod === 'week' ? 'This Week' :
+            this.currentPeriod === 'month' ? 'This Month' : 'This Year';
+        const exportDate = new Date().toLocaleDateString('en', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Create printable HTML content
+        const printContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>DailySync Report - ${periodLabel}</title>
+                <style>
+                    * { margin: 0; padding: 0; box-sizing: border-box; }
+                    body { 
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                        padding: 40px;
+                        color: #1a1a2e;
+                        background: white;
+                    }
+                    .header { 
+                        text-align: center; 
+                        margin-bottom: 30px;
+                        padding-bottom: 20px;
+                        border-bottom: 2px solid #e0e0e0;
+                    }
+                    .header h1 { 
+                        font-size: 28px; 
+                        color: #3b82f6;
+                        margin-bottom: 8px;
+                    }
+                    .header p { 
+                        color: #666; 
+                        font-size: 14px;
+                    }
+                    .summary-grid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 20px;
+                        margin-bottom: 30px;
+                    }
+                    .summary-card {
+                        background: #f8f9fa;
+                        border-radius: 12px;
+                        padding: 20px;
+                        text-align: center;
+                        border: 1px solid #e0e0e0;
+                    }
+                    .summary-card .icon {
+                        font-size: 32px;
+                        margin-bottom: 10px;
+                    }
+                    .summary-card .value {
+                        font-size: 36px;
+                        font-weight: 700;
+                        color: #1a1a2e;
+                    }
+                    .summary-card .label {
+                        font-size: 14px;
+                        color: #666;
+                        margin-top: 5px;
+                    }
+                    .section {
+                        margin-bottom: 30px;
+                    }
+                    .section h2 {
+                        font-size: 18px;
+                        color: #1a1a2e;
+                        margin-bottom: 15px;
+                        padding-bottom: 10px;
+                        border-bottom: 1px solid #e0e0e0;
+                    }
+                    .breakdown-list {
+                        background: #f8f9fa;
+                        border-radius: 12px;
+                        padding: 20px;
+                    }
+                    .breakdown-item {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 12px 0;
+                        border-bottom: 1px solid #e0e0e0;
+                    }
+                    .breakdown-item:last-child {
+                        border-bottom: none;
+                    }
+                    .breakdown-label { color: #666; }
+                    .breakdown-value { font-weight: 600; }
+                    .footer {
+                        text-align: center;
+                        margin-top: 40px;
+                        padding-top: 20px;
+                        border-top: 1px solid #e0e0e0;
+                        color: #999;
+                        font-size: 12px;
+                    }
+                    @media print {
+                        body { padding: 20px; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>📊 DailySync Report</h1>
+                    <p>${periodLabel} • Generated on ${exportDate}</p>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="icon">✓</div>
+                        <div class="value">${summary.tasksCompleted}</div>
+                        <div class="label">Tasks Completed</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="icon">🎯</div>
+                        <div class="value">${summary.habitsCompleted}</div>
+                        <div class="label">Habits Done</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="icon">⏱️</div>
+                        <div class="value">${this.formatDuration(summary.focusTime)}</div>
+                        <div class="label">Focus Time</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="icon">🔥</div>
+                        <div class="value">${summary.focusSessions}</div>
+                        <div class="label">Focus Sessions</div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2>Productivity Breakdown</h2>
+                    <div class="breakdown-list">
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Average Focus Time/Day</span>
+                            <span class="breakdown-value">${this.formatDuration(summary.avgFocusTime)}</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Most Productive Day</span>
+                            <span class="breakdown-value">${summary.bestDay || 'N/A'}</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Total Sessions</span>
+                            <span class="breakdown-value">${summary.focusSessions}</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Task Completion Rate</span>
+                            <span class="breakdown-value">${summary.taskCompletionRate}%</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Focus Streak</span>
+                            <span class="breakdown-value">${summary.habitStreak} days</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer">
+                    <p>Generated by DailySync • Your productivity companion</p>
+                </div>
+            </body>
+            </html>
+        `;
+
+        // Open print window
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(printContent);
+        printWindow.document.close();
+
+        // Wait for content to load then print
+        printWindow.onload = function () {
+            printWindow.print();
+        };
+
+        Toast.show('PDF report ready! Use "Save as PDF" in print dialog.', 'success');
     }
 };
 

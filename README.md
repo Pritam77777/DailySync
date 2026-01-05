@@ -1,4 +1,4 @@
-# DailySync
+# DailySync 🚀
 
 > **Your All-in-One Productivity Companion.**
 > Manage tasks, track habits, set goals, and stay focused—all in one beautiful, synchronized workspace.
